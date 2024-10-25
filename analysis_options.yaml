@@ -1,0 +1,105 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.mocks.dart"
+    - "lib/generated/**"
+
+  language:
+    strict-inference: true
+    strict-raw-types: true
+
+  errors:
+    invalid_annotation_target: ignore # мешает freezed
+    unnecessary_getters_setters: ignore # мешает делать сеттеры и геттеры для приватных свойств
+    lines_longer_than_80_chars: ignore # мешает длинне строк
+
+linter:
+  rules:
+    always_use_package_imports: true # использовать полные импорты вместо сокращенных
+    use_build_context_synchronously: false # DCM перекрывает
+    prefer_const_constructors: true
+    non_constant_identifier_names: false # заказчик хочет кэмелкейс!
+
+dart_code_metrics:
+  extends:
+    - package:dart_code_metrics_presets/all.yaml
+    - package:dart_code_metrics_presets/bloc.yaml
+    - package:dart_code_metrics_presets/provider.yaml
+    - package:dart_code_metrics_presets/get_it.yaml
+#    - package:dart_code_metrics_presets/intl.yaml
+#    - package:dart_code_metrics_presets/pub.yaml
+  assists:
+  formatter:
+    line-length: 120
+  rules:
+    - avoid-cubits: false
+    - avoid-duplicate-collection-elements: false
+    - avoid-duplicate-initializers: false # не работает правило!
+    - avoid-duplicate-map-keys: false # не работает правило!
+    - avoid-empty-build-when: false # слишком много
+    - avoid-getter-prefix: false
+    - avoid-high-cyclomatic-complexity: false
+    - avoid-ignoring-return-values: false
+    - avoid-inferrable-type-arguments: false
+    - avoid-late-keyword:
+        allow-initialized: true
+    - avoid-long-functions:
+        max-length: 60
+    - avoid-nested-conditional-expressions:
+        acceptable-level: 2
+    - avoid-non-ascii-symbols: false
+    - avoid-passing-self-as-argument: false
+    - avoid-returning-cascades: false
+    - avoid-shadowing:
+        ignored-names:
+          - context
+          - event
+          - state
+    - avoid-similar-names: false
+    - avoid-type-casts: false
+    - avoid-undisposed-instances: false # не работает правило!
+    - avoid-unsafe-collection-methods: false # Задолбало!
+    - avoid-unused-assignment: false
+    - arguments-ordering: false
+    - format-comment:
+        only-doc-comments: true
+    - member-ordering:
+        alphabetize: false
+        order:
+          - fields
+          - constructors
+        widgets-order:
+          - fields
+          - constructors
+    - newline-before-case: false
+    - newline-before-method: false
+    - no-equal-arguments: false
+    - no-magic-number: false
+    - no-magic-string: false
+    - parameters-ordering: false
+    - prefer-addition-subtraction-assignments: false
+    - prefer-boolean-prefixes: false
+    - prefer-correct-handler-name:
+        name-pattern: (^handle[A-Z]+|^unawaited|Listener$)
+    - prefer-correct-identifier-length:
+        exceptions: [ 'id','x','y','db', 'tg', 'bg', 'qr' ,'to' ]
+        min-identifier-length: 3
+    - prefer-correct-switch-length:
+        min-length: 2
+        max-length: 50
+    - prefer-correct-throws: false
+    - prefer-extracting-function-callbacks: false
+    - prefer-for-loop-in-children: false
+    - prefer-match-file-name: false
+    - prefer-moving-to-variable:
+        allowed-duplicated-chains: 5
+    - prefer-named-boolean-parameters: false
+    - prefer-named-parameters: false
+    - prefer-single-declaration-per-file: false
+    - prefer-switch-with-sealed-classes: false
+    - prefer-widget-private-members:
+        ignore-static: true
+
