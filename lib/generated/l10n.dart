@@ -59,6 +59,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Трансляция`
+  String get nav_video {
+    return Intl.message(
+      'Трансляция',
+      name: 'nav_video',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `О проекте`
+  String get nav_about {
+    return Intl.message(
+      'О проекте',
+      name: 'nav_about',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Сейчас смотрят {total}`
+  String online(Object total) {
+    return Intl.message(
+      'Сейчас смотрят $total',
+      name: 'online',
+      desc: '',
+      args: [total],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

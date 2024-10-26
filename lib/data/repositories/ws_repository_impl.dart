@@ -6,7 +6,7 @@ import 'dart:convert';
 import 'package:birds/data/models/ws_model.dart';
 import 'package:birds/domain/entities/ws_entity.dart';
 import 'package:birds/domain/repositories/ws_repository.dart';
-import 'package:flutter/foundation.dart';
+import 'package:birds/utils/types.dart';
 import 'package:logging/logging.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -15,7 +15,7 @@ class WsRepositoryImpl extends WsRepository {
   final String url;
   WebSocketChannel? _channel;
   StreamSubscription<dynamic>? _subscription;
-  // Future<void> Function(WsMessageEntity message)? externalListener;
+  ChangeCallback<WsEntity>? _onMessage;
 
   WsRepositoryImpl({required this.url});
 
@@ -36,27 +36,11 @@ class WsRepositoryImpl extends WsRepository {
   }
 
   void _listener(dynamic message) {
-    // Временно
-    // ignore: prefer-early-return
-    if (kDebugMode) {
+    final listener = _onMessage;
+    if (listener != null) {
       WsEntity msg = WsModel.fromJson(jsonDecode(message)).toEntity();
-      print('${msg.cmd} ${msg.data}');
+      listener(msg);
     }
-    // if(msg.cmd==WsCmd.message){
-    //   print((msg.data as WsDataMessageEntity).text);
-    // }
-    // switch (msg.cmd) {
-    //   case 'start':
-    //     msg = msg.copyWith(data: GameUserDataModel.fromJson(msg.data));
-    //     break;
-    //   default:
-    //     msg = msg.copyWith(data: msg.data);
-    //     break;
-    // }
-    // final listener = externalListener;
-    // if (listener != null) {
-    //   listener(msg);
-    // }
   }
 
   @override
@@ -64,13 +48,13 @@ class WsRepositoryImpl extends WsRepository {
     unawaited(_reconnect());
   }
 
-  // @override
-  // void read(Future<void> Function(WsMessageEntity message) listener) {
-  //   externalListener = listener;
-  // }
-  //
-  // @override
-  // void send(WsMessageEntity message) {
-  //   _channel?.sink.add(jsonEncode(WsMessageModel.fromEntity(message)));
-  // }
+  @override
+  void read(ChangeCallback<WsEntity> onMessage) {
+    _onMessage = onMessage;
+  }
+
+  @override
+  void send(WsEntity message) {
+    _channel?.sink.add(jsonEncode(WsModel.fromEntity(message).toJson()));
+  }
 }

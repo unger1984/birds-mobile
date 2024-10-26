@@ -1,5 +1,7 @@
+import 'package:birds/domain/rus_messages.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl_standalone.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 sealed class LocaleEvent {
   const LocaleEvent();
@@ -40,6 +42,7 @@ class LocaleBLoC extends Bloc<LocaleEvent, LocaleState> {
       },
     );
 
+    timeago.setLocaleMessages('ru', const RuMessages());
     add(const LocaleEvent.init());
   }
 
@@ -48,11 +51,14 @@ class LocaleBLoC extends Bloc<LocaleEvent, LocaleState> {
     final locale = await findSystemLocale();
     // Тут точно UTF-8
     // ignore: avoid-substring
-    emitter(LocaleState.success(locale.substring(0, 2)));
+    final lang = locale.substring(0, 2);
+    timeago.setDefaultLocale(lang);
+    emitter(LocaleState.success(lang));
   }
 
   void _change(_ChangeLocaleEvent event, Emitter<LocaleState> emitter) {
     emitter(const LocaleState.loading());
+    timeago.setDefaultLocale(event.locale);
     emitter(LocaleState.success(event.locale));
   }
 }

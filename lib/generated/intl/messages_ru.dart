@@ -20,8 +20,13 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ru';
 
+  static String m0(total) => "Сейчас смотрят ${total}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "nav_about": MessageLookupByLibrary.simpleMessage("О проекте"),
+        "nav_video": MessageLookupByLibrary.simpleMessage("Трансляция"),
+        "online": m0,
         "title": MessageLookupByLibrary.simpleMessage("BirdsFeeder")
       };
 }

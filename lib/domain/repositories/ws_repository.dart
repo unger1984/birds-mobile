@@ -1,5 +1,8 @@
+import 'package:birds/domain/entities/ws_entity.dart';
+import 'package:birds/utils/types.dart';
+
 abstract class WsRepository {
   void connect();
-  // void send(WsMessageEntity message);
-  // void read(Future<void> Function(WsMessageEntity message) listener);
+  void send(WsEntity message);
+  void read(ChangeCallback<WsEntity> onMessage);
 }

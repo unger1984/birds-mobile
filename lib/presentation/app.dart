@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:birds/domain/repositories/ws_repository.dart';
 import 'package:birds/generated/l10n.dart';
 import 'package:birds/presentation/blocs/locale_bloc.dart';
+import 'package:birds/presentation/blocs/main_router.dart';
 import 'package:birds/presentation/blocs/ws_cubit.dart';
+import 'package:birds/presentation/sceens/video/video_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -34,6 +36,7 @@ class _AppState extends State<App> {
         BlocProvider<WsCubit>(
           create: (context) => WsCubit(wsRepository: GetIt.I<WsRepository>()),
         ),
+        BlocProvider<MainRouterBLoC>(create: (context) => MainRouterBLoC()),
       ],
       child: BlocBuilder<LocaleBLoC, LocaleState>(
         builder: (context, state) => switch (state) {
@@ -49,14 +52,13 @@ class _AppState extends State<App> {
               onGenerateTitle: (context) => S.of(context).title,
               restorationScopeId: 'root',
               theme: ThemeData(primarySwatch: Colors.blueGrey),
-              home: Scaffold(
-                body: BlocBuilder<WsCubit, WsCubitState>(
-                  // Временно
-                  // ignore: avoid-nested-switch-expressions
-                  builder: (context, state) => switch (state) {
-                    LoadingWsCubitState() => const Center(child: CircularProgressIndicator()),
-                  },
-                ),
+              home: BlocBuilder<MainRouterBLoC, MainRouterState>(
+                // Так удобнее чем заводить новый виджет.
+                // ignore: avoid-nested-switch-expressions
+                builder: (context, route) => switch (route) {
+                  VideoMainRouterState() => const VideoScreen(),
+                  _ => const SizedBox(),
+                },
               ),
             ),
           _ => const SizedBox(),
