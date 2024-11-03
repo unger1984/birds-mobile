@@ -89,6 +89,26 @@ class S {
       args: [total],
     );
   }
+
+  /// `Войти с Google`
+  String get sign_in {
+    return Intl.message(
+      'Войти с Google',
+      name: 'sign_in',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `На семечки`
+  String get donate {
+    return Intl.message(
+      'На семечки',
+      name: 'donate',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

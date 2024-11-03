@@ -4,10 +4,12 @@ import 'package:birds/domain/datasources/config_source.dart';
 import 'package:birds/domain/entities/ws_data_sign_in_entity.dart';
 import 'package:birds/domain/entities/ws_entity.dart';
 import 'package:birds/domain/repositories/ws_repository.dart';
+import 'package:birds/generated/l10n.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:get_it/get_it.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 @immutable
 class ChatFormView extends StatefulWidget {
@@ -44,8 +46,22 @@ class _ChatFormViewState extends State<ChatFormView> {
     }
   }
 
+  void _handleDonate() {
+    unawaited(launchUrlString('https://www.tbank.ru/cf/5mfwO0VNFF9'));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: () => unawaited(_handleSign()), child: const Text('Sign with Google'));
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        ElevatedButton(
+          onPressed: _handleDonate,
+          style: ElevatedButton.styleFrom(backgroundColor: const Color(0xffF08130)),
+          child: Text(S.of(context).donate),
+        ),
+        ElevatedButton(onPressed: () => unawaited(_handleSign()), child: Text(S.of(context).sign_in)),
+      ],
+    );
   }
 }
