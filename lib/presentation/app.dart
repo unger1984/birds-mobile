@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:birds/domain/datasources/settings_source.dart';
 import 'package:birds/domain/repositories/ws_repository.dart';
 import 'package:birds/generated/l10n.dart';
+import 'package:birds/presentation/blocs/auth_bloc.dart';
 import 'package:birds/presentation/blocs/locale_bloc.dart';
 import 'package:birds/presentation/blocs/main_router.dart';
 import 'package:birds/presentation/blocs/ws_cubit.dart';
@@ -22,10 +24,12 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   final _localeBLoC = LocaleBLoC();
+  final _wsCubit = WsCubit(wsRepository: GetIt.I<WsRepository>());
 
   @override
   dispose() {
     unawaited(_localeBLoC.close());
+    unawaited(_wsCubit.close());
     super.dispose();
   }
 
@@ -34,10 +38,15 @@ class _AppState extends State<App> {
     return MultiBlocProvider(
       providers: [
         BlocProvider<LocaleBLoC>.value(value: _localeBLoC),
-        BlocProvider<WsCubit>(
-          create: (context) => WsCubit(wsRepository: GetIt.I<WsRepository>()),
-        ),
+        BlocProvider<WsCubit>.value(value: _wsCubit),
         BlocProvider<MainRouterBLoC>(create: (context) => MainRouterBLoC()),
+        BlocProvider<AuthBLoC>(
+          create: (context) => AuthBLoC(
+            wsCubit: _wsCubit,
+            wsRepository: GetIt.I<WsRepository>(),
+            settingsSource: GetIt.I<SettingsSource>(),
+          ),
+        ),
       ],
       child: BlocBuilder<LocaleBLoC, LocaleState>(
         builder: (context, state) => switch (state) {

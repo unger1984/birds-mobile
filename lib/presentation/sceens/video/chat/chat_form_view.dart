@@ -1,13 +1,17 @@
 import 'dart:async';
 
 import 'package:birds/domain/datasources/config_source.dart';
+import 'package:birds/domain/entities/user_entity.dart';
 import 'package:birds/domain/entities/ws_data_sign_in_entity.dart';
 import 'package:birds/domain/entities/ws_entity.dart';
 import 'package:birds/domain/repositories/ws_repository.dart';
 import 'package:birds/generated/l10n.dart';
+import 'package:birds/presentation/blocs/auth_bloc.dart';
+import 'package:birds/presentation/sceens/video/chat/chat_form.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -60,7 +64,12 @@ class _ChatFormViewState extends State<ChatFormView> {
           style: ElevatedButton.styleFrom(backgroundColor: const Color(0xffF08130)),
           child: Text(S.of(context).donate),
         ),
-        ElevatedButton(onPressed: () => unawaited(_handleSign()), child: Text(S.of(context).sign_in)),
+        BlocBuilder<AuthBLoC, AuthState>(
+          builder: (context, state) => switch (state) {
+            OnAuthState(:UserEntity user) => ChatForm(user: user),
+            _ => ElevatedButton(onPressed: () => unawaited(_handleSign()), child: Text(S.of(context).sign_in)),
+          },
+        ),
       ],
     );
   }

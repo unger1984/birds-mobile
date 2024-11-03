@@ -7,6 +7,7 @@ import 'package:birds/data/models/ws_model.dart';
 import 'package:birds/domain/entities/ws_entity.dart';
 import 'package:birds/domain/repositories/ws_repository.dart';
 import 'package:birds/utils/types.dart';
+import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -16,6 +17,7 @@ class WsRepositoryImpl extends WsRepository {
   WebSocketChannel? _channel;
   StreamSubscription<dynamic>? _subscription;
   ChangeCallback<WsEntity>? _onMessage;
+  VoidCallback? _onReconnect;
 
   WsRepositoryImpl({required this.url});
 
@@ -31,6 +33,8 @@ class WsRepositoryImpl extends WsRepository {
     _log.severe('ws error', err);
     if (_subscription != null) {
       await _subscription?.cancel();
+      final onReconnect = _onReconnect;
+      if (onReconnect != null) onReconnect();
       _reconnect();
     }
   }
@@ -51,6 +55,11 @@ class WsRepositoryImpl extends WsRepository {
   @override
   void read(ChangeCallback<WsEntity> onMessage) {
     _onMessage = onMessage;
+  }
+
+  @override
+  void reconnect(VoidCallback onReconnect) {
+    _onReconnect = onReconnect;
   }
 
   @override

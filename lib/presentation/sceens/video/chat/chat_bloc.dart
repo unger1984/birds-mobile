@@ -61,6 +61,8 @@ class ChatBLoC extends Bloc<ChatEvent, ChatState> {
   void _wsListener(WsCubitState state) {
     if (state is MessageWsCubitState && state.message.cmd == WsCmd.message) {
       add(ChatEvent.add(state.message.data as WsDataMessageEntity));
+    } else if (state is LoadingWsCubitState) {
+      add(const ChatEvent.init());
     }
   }
 

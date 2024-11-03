@@ -24,8 +24,9 @@ class WsCubit extends Cubit<WsCubitState> {
 
   WsCubit({required WsRepository wsRepository})
       : _wsRepository = wsRepository,
-        super(const LoadingWsCubitState()) {
+        super(const WsCubitState.loading()) {
     _wsRepository.read(_wsListener);
+    _wsRepository.reconnect(_reconnect);
     _wsRepository.connect();
   }
 
@@ -34,5 +35,9 @@ class WsCubit extends Cubit<WsCubitState> {
       print(WsModel.fromEntity(message).toJson());
     }
     emit(WsCubitState.message(message));
+  }
+
+  void _reconnect() {
+    emit(const WsCubitState.loading());
   }
 }
