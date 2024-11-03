@@ -8,6 +8,7 @@ class ConfigSourceDotenv extends ConfigSource {
   static final _log = Logger('ConfigSourceDotenv');
   late final String _wsUrl;
   late final String _hlsUrl;
+  late final String _googleAuthClientId;
 
   late Future<void> _initialize;
 
@@ -22,6 +23,7 @@ class ConfigSourceDotenv extends ConfigSource {
       await dotenv.load();
       _wsUrl = dotenv.maybeGet('URL_WS') ?? '';
       _hlsUrl = dotenv.maybeGet('URL_HLS') ?? '';
+      _googleAuthClientId = dotenv.maybeGet('GOOGLE_AUTH_CLIENT_ID') ?? '';
     } catch (error, stack) {
       _log.severe('loading .env', error, stack);
     }
@@ -35,4 +37,7 @@ class ConfigSourceDotenv extends ConfigSource {
 
   @override
   String get hlsUrl => _hlsUrl;
+
+  @override
+  String get googleAuthClientId => _googleAuthClientId;
 }

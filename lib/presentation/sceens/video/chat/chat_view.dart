@@ -1,5 +1,6 @@
 import 'package:birds/domain/entities/ws_data_message_entity.dart';
 import 'package:birds/presentation/sceens/video/chat/chat_bloc.dart';
+import 'package:birds/presentation/sceens/video/chat/chat_form_view.dart';
 import 'package:birds/presentation/sceens/video/chat/chat_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +13,12 @@ class ChatView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ChatBLoC, ChatState>(
       builder: (context, state) => switch (state) {
-        SuccessChatState(:List<WsDataMessageEntity> list) => ChatList(list: list),
+        SuccessChatState(:List<WsDataMessageEntity> list) => Column(
+            children: [
+              Expanded(child: ChatList(list: list)),
+              const ChatFormView(),
+            ],
+          ),
         _ => const Center(child: CircularProgressIndicator()),
       },
     );

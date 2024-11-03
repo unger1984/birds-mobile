@@ -4,6 +4,7 @@ import 'package:birds/presentation/sceens/video/chat/chat_bloc.dart';
 import 'package:birds/presentation/sceens/video/chat/chat_view.dart';
 import 'package:birds/presentation/sceens/video/count/count_bloc.dart';
 import 'package:birds/presentation/sceens/video/count/count_view.dart';
+import 'package:birds/presentation/sceens/video/video_player/video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,26 +14,51 @@ class VideoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<CountBLoC>(
-          create: (context) => CountBLoC(
-            wsCubit: BlocProvider.of<WsCubit>(context),
+    return SafeArea(
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<CountBLoC>(
+            create: (context) => CountBLoC(
+              wsCubit: BlocProvider.of<WsCubit>(context),
+            ),
           ),
-        ),
-        BlocProvider<ChatBLoC>(
-          create: (context) => ChatBLoC(
-            wsCubit: BlocProvider.of<WsCubit>(context),
+          BlocProvider<ChatBLoC>(
+            create: (context) => ChatBLoC(
+              wsCubit: BlocProvider.of<WsCubit>(context),
+            ),
           ),
-        ),
-      ],
-      child: Scaffold(
-        appBar: AppBar(title: Text(S.of(context).nav_video)),
-        body: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [CountView(), Expanded(child: ChatView())],
+        ],
+        child: OrientationBuilder(
+          builder: (context, orientation) => Scaffold(
+            appBar: orientation == Orientation.portrait ? AppBar(title: Text(S.of(context).nav_video)) : null,
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Builder(
+                builder: (context) => switch (orientation) {
+                  Orientation.portrait => const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(child: VideoPlayer()),
+                        CountView(),
+                        SizedBox(height: 5),
+                        Expanded(child: ChatView()),
+                      ],
+                    ),
+                  Orientation.landscape => const Row(
+                      children: [
+                        Flexible(flex: 2, child: VideoPlayer()),
+                        SizedBox(width: 5),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [CountView(), SizedBox(height: 5), Expanded(child: ChatView())],
+                          ),
+                        ),
+                      ],
+                    ),
+                },
+              ),
+            ),
           ),
         ),
       ),

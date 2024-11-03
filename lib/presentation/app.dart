@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
+import 'package:system_theme/system_theme.dart';
 
 @immutable
 class App extends StatefulWidget {
@@ -51,7 +52,19 @@ class _AppState extends State<App> {
               supportedLocales: S.delegate.supportedLocales,
               onGenerateTitle: (context) => S.of(context).title,
               restorationScopeId: 'root',
-              theme: ThemeData(primarySwatch: Colors.blueGrey),
+              theme: ThemeData(
+                useMaterial3: true,
+                colorScheme: ColorScheme.fromSeed(
+                  seedColor: SystemTheme.accentColor.accent,
+                ),
+              ),
+              darkTheme: ThemeData(
+                useMaterial3: true,
+                colorScheme: ColorScheme.fromSeed(
+                  seedColor: SystemTheme.accentColor.accent,
+                  brightness: Brightness.dark,
+                ),
+              ),
               home: BlocBuilder<MainRouterBLoC, MainRouterState>(
                 // Так удобнее чем заводить новый виджет.
                 // ignore: avoid-nested-switch-expressions

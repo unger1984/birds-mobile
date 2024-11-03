@@ -14,6 +14,7 @@ dependencies:
     sdk: flutter
   bloc_concurrency: ^0.2.5
   colorize: ^3.0.0
+  flutter_appauth: ^8.0.0+1
   flutter_bloc: ^8.1.6
   flutter_dotenv: ^5.2.1
   flutter_native_splash: ^2.4.2
@@ -26,6 +27,7 @@ dependencies:
   media_kit_video: ^1.2.5 # For video rendering.
   media_kit_libs_video: ^1.0.5 # Native video dependencies.
   permission_handler: ^11.3.1
+  system_theme: ^3.1.2
   timeago: ^3.7.0
   web_socket_channel: ^3.0.1
   wakelock_plus: ^1.2.8

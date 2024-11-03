@@ -1,5 +1,7 @@
+import 'package:birds/data/models/ws_model.dart';
 import 'package:birds/domain/entities/ws_entity.dart';
 import 'package:birds/domain/repositories/ws_repository.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 sealed class WsCubitState {
@@ -28,6 +30,9 @@ class WsCubit extends Cubit<WsCubitState> {
   }
 
   void _wsListener(WsEntity message) {
+    if (kDebugMode) {
+      print(WsModel.fromEntity(message).toJson());
+    }
     emit(WsCubitState.message(message));
   }
 }
