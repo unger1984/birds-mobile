@@ -1,5 +1,6 @@
 import 'package:birds/generated/l10n.dart';
 import 'package:birds/presentation/blocs/ws_cubit.dart';
+import 'package:birds/presentation/components/bottom_menu/bottom_menu.dart';
 import 'package:birds/presentation/sceens/video/chat/chat_bloc.dart';
 import 'package:birds/presentation/sceens/video/chat/chat_view.dart';
 import 'package:birds/presentation/sceens/video/count/count_bloc.dart';
@@ -59,6 +60,7 @@ class VideoScreen extends StatelessWidget {
                 },
               ),
             ),
+            bottomNavigationBar: const BottomMenu(),
           ),
         ),
       ),

@@ -7,6 +7,7 @@ import 'package:birds/presentation/blocs/auth_bloc.dart';
 import 'package:birds/presentation/blocs/locale_bloc.dart';
 import 'package:birds/presentation/blocs/main_router.dart';
 import 'package:birds/presentation/blocs/ws_cubit.dart';
+import 'package:birds/presentation/sceens/about/about_screen.dart';
 import 'package:birds/presentation/sceens/video/video_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -74,12 +75,13 @@ class _AppState extends State<App> {
                   brightness: Brightness.dark,
                 ),
               ),
+              debugShowCheckedModeBanner: false,
               home: BlocBuilder<MainRouterBLoC, MainRouterState>(
                 // Так удобнее чем заводить новый виджет.
                 // ignore: avoid-nested-switch-expressions
                 builder: (context, route) => switch (route) {
                   VideoMainRouterState() => const VideoScreen(),
-                  _ => const SizedBox(),
+                  AboutMainRouterState() => const AboutScreen(),
                 },
               ),
             ),
