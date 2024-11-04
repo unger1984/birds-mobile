@@ -1,3 +1,4 @@
+import 'package:birds/domain/repositories/ws_repository.dart';
 import 'package:birds/generated/l10n.dart';
 import 'package:birds/presentation/blocs/ws_cubit.dart';
 import 'package:birds/presentation/components/bottom_menu/bottom_menu.dart';
@@ -8,6 +9,7 @@ import 'package:birds/presentation/sceens/video/count/count_view.dart';
 import 'package:birds/presentation/sceens/video/video_player/video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 @immutable
 class VideoScreen extends StatelessWidget {
@@ -26,6 +28,7 @@ class VideoScreen extends StatelessWidget {
           BlocProvider<ChatBLoC>(
             create: (context) => ChatBLoC(
               wsCubit: BlocProvider.of<WsCubit>(context),
+              wsRepository: GetIt.I<WsRepository>(),
             ),
           ),
         ],
@@ -48,7 +51,7 @@ class VideoScreen extends StatelessWidget {
                   Orientation.landscape => const Row(
                       children: [
                         Flexible(flex: 2, child: VideoPlayer()),
-                        SizedBox(width: 5),
+                        SizedBox(width: 10),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

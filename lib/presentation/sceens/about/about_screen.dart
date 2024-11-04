@@ -27,6 +27,7 @@ class AboutScreen extends StatelessWidget {
       S.of(context).about_p9,
       S.of(context).about_p10,
       S.of(context).about_p11,
+      S.of(context).about_p12,
     ];
 
     final pairs = List.generate(

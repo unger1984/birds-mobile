@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:birds/domain/entities/ws_data_message_entity.dart';
+import 'package:birds/domain/entities/ws_data_reload_chat_entity.dart';
 import 'package:birds/domain/entities/ws_entity.dart';
+import 'package:birds/domain/repositories/ws_repository.dart';
 import 'package:birds/presentation/blocs/ws_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,12 +38,15 @@ class SuccessChatState extends ChatState {
 }
 
 class ChatBLoC extends Bloc<ChatEvent, ChatState> {
+  final WsRepository _wsRepository;
   // В конструкторе
   // ignore: avoid-late-keyword
   late final StreamSubscription<WsCubitState> _streamSubscription;
   List<WsDataMessageEntity> _list = [];
 
-  ChatBLoC({required WsCubit wsCubit}) : super(const ChatState.loading()) {
+  ChatBLoC({required WsCubit wsCubit, required WsRepository wsRepository})
+      : _wsRepository = wsRepository,
+        super(const ChatState.loading()) {
     on<ChatEvent>(
       (event, emitter) => switch (event) {
         _InitChatEvent() => _init(emitter),
@@ -49,6 +54,7 @@ class ChatBLoC extends Bloc<ChatEvent, ChatState> {
       },
     );
     _streamSubscription = wsCubit.stream.listen(_wsListener);
+    _wsRepository.send(WsEntity(cmd: WsCmd.reloadChat, data: const WsDataReloadChatEntity()));
   }
 
   @override

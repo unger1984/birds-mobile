@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.1+2 04.11.2024
+
+* Feat: Add background music
+* Fix: Fix chat reload on back from About page
+
 ## 1.0.0-1 04.11.2024
 
 * Initial version

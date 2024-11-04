@@ -30,6 +30,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "I usually pour out food for the birds in the morning. Towards the end of autumn, in winter and at the beginning of spring I try to do it every day. Less often in summer – the birds have enough natural food, they become rare guests at the feeder and do not have time to eat everything. In winter, they eat the food quite quickly – after lunch the feeder is almost empty."),
         "about_p11": MessageLookupByLibrary.simpleMessage(
             "I will be glad to receive any of your suggestions and comments. Leave comments in the broadcast chat, I will definitely read them!"),
+        "about_p12": MessageLookupByLibrary.simpleMessage(
+            "This project has a website, https://birds.unger1984.pro/ , More information about me and other projects can be found on GitHub https://github.com/unger1984/"),
         "about_p2": MessageLookupByLibrary.simpleMessage(
             "It turns out that the feathered world of central Russia is quite rich. Very often I had to use Google to determine what kind of bird came for lunch."),
         "about_p3": MessageLookupByLibrary.simpleMessage(

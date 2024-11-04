@@ -219,6 +219,16 @@ class S {
       args: [],
     );
   }
+
+  /// `У данного проекта есть сайт, https://birds.unger1984.pro/ , Подробнее обо мне и остальных проектах можно узнать на GitHub https://github.com/unger1984/`
+  String get about_p12 {
+    return Intl.message(
+      'У данного проекта есть сайт, https://birds.unger1984.pro/ , Подробнее обо мне и остальных проектах можно узнать на GitHub https://github.com/unger1984/',
+      name: 'about_p12',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
