@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.2+3 06.11.2024
+
+* Update dependencies
+* Fix: Save music status
+
 ## 1.0.1+2 04.11.2024
 
 * Feat: Add background music

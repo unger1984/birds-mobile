@@ -1,3 +1,4 @@
+import 'package:birds/domain/datasources/settings_source.dart';
 import 'package:birds/domain/repositories/ws_repository.dart';
 import 'package:birds/generated/l10n.dart';
 import 'package:birds/presentation/blocs/ws_cubit.dart';
@@ -6,6 +7,7 @@ import 'package:birds/presentation/sceens/video/chat/chat_bloc.dart';
 import 'package:birds/presentation/sceens/video/chat/chat_view.dart';
 import 'package:birds/presentation/sceens/video/count/count_bloc.dart';
 import 'package:birds/presentation/sceens/video/count/count_view.dart';
+import 'package:birds/presentation/sceens/video/count/sound_bloc.dart';
 import 'package:birds/presentation/sceens/video/video_player/video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,6 +31,11 @@ class VideoScreen extends StatelessWidget {
             create: (context) => ChatBLoC(
               wsCubit: BlocProvider.of<WsCubit>(context),
               wsRepository: GetIt.I<WsRepository>(),
+            ),
+          ),
+          BlocProvider<SoundBLoC>(
+            create: (context) => SoundBLoC(
+              settingsSource: GetIt.I<SettingsSource>(),
             ),
           ),
         ],
