@@ -2,11 +2,13 @@ import 'package:birds/data/models/ws_data_auth_model.dart';
 import 'package:birds/data/models/ws_data_count_model.dart';
 import 'package:birds/data/models/ws_data_message_model.dart';
 import 'package:birds/data/models/ws_data_model.dart';
+import 'package:birds/data/models/ws_data_online_model.dart';
 import 'package:birds/data/models/ws_data_reload_chat_model.dart';
 import 'package:birds/data/models/ws_data_sign_in_model.dart';
 import 'package:birds/domain/entities/ws_data_auth_entity.dart';
 import 'package:birds/domain/entities/ws_data_count_entity.dart';
 import 'package:birds/domain/entities/ws_data_message_entity.dart';
+import 'package:birds/domain/entities/ws_data_online_entity.dart';
 import 'package:birds/domain/entities/ws_data_sign_in_entity.dart';
 import 'package:birds/domain/entities/ws_entity.dart';
 
@@ -36,6 +38,9 @@ class WsModel {
       case WsCmd.signIn:
         data = WsDataSignInModel.fromJson(json['data']);
         break;
+      case WsCmd.online:
+        data = WsDataOnlineModel.fromJson(json['data']);
+        break;
     }
 
     return WsModel(cmd: cmd, data: data);
@@ -60,6 +65,9 @@ class WsModel {
         break;
       case WsCmd.signIn:
         data = WsDataSignInModel.fromEntity((entity.data as WsDataSignInEntity));
+        break;
+      case WsCmd.online:
+        data = WsDataOnlineModel.fromEntity((entity.data as WsDataOnlineEntity));
         break;
     }
 

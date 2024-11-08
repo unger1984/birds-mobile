@@ -85,7 +85,7 @@ dart_code_metrics:
     - prefer-correct-handler-name:
         name-pattern: (^handle[A-Z]+|^unawaited|Listener$)
     - prefer-correct-identifier-length:
-        exceptions: [ 'id','x','y','db', 'tg', 'bg', 'qr' ,'to' ]
+        exceptions: [ 'id','x','y','db', 'tg', 'bg', 'qr' ,'to', 'ip' ]
         min-identifier-length: 3
     - prefer-correct-switch-length:
         min-length: 2

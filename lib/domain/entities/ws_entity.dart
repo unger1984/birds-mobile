@@ -4,6 +4,7 @@ enum WsCmd {
   auth('auth'),
   count('count'),
   message('message'),
+  online('online'),
   reloadChat('reload_chat'),
   signIn('sign_in');
 
@@ -21,6 +22,8 @@ enum WsCmd {
         return count;
       case 'reload_chat':
         return reloadChat;
+      case 'online':
+        return online;
       case 'message':
       default:
         return message;

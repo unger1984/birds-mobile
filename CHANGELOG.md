@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.3+4
+
+* Update dependencies
+* Feat: Make ScreenShots
+
 ## 1.0.2+3 06.11.2024
 
 * Update dependencies

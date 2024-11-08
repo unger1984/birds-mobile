@@ -52,6 +52,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "nav_about": MessageLookupByLibrary.simpleMessage("About"),
         "nav_video": MessageLookupByLibrary.simpleMessage("Translation"),
         "online": m0,
+        "screenshot_error":
+            MessageLookupByLibrary.simpleMessage("Failed to create image"),
+        "screenshot_success":
+            MessageLookupByLibrary.simpleMessage("Image saved to gallery"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign in with Google"),
         "title": MessageLookupByLibrary.simpleMessage("BirdsFeeder")
       };

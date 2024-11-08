@@ -229,6 +229,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Не удалось создать изображение`
+  String get screenshot_error {
+    return Intl.message(
+      'Не удалось создать изображение',
+      name: 'screenshot_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Изображение сохранено в галерее`
+  String get screenshot_success {
+    return Intl.message(
+      'Изображение сохранено в галерее',
+      name: 'screenshot_success',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

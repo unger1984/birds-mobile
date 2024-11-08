@@ -52,6 +52,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "nav_about": MessageLookupByLibrary.simpleMessage("О проекте"),
         "nav_video": MessageLookupByLibrary.simpleMessage("Трансляция"),
         "online": m0,
+        "screenshot_error": MessageLookupByLibrary.simpleMessage(
+            "Не удалось создать изображение"),
+        "screenshot_success": MessageLookupByLibrary.simpleMessage(
+            "Изображение сохранено в галерее"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Войти с Google"),
         "title": MessageLookupByLibrary.simpleMessage("BirdsFeeder")
       };

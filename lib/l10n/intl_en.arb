@@ -21,5 +21,8 @@
     "about_p9": "Here you can watch the birds with me, discuss what you saw in the chat and throw in a small penny for bird food. The project is completely non-commercial, does not provide paid services. But I will not refuse donations that will go to feed the birds and develop the project. I have thoughts of installing a few more cameras, or even organizing a feeder in a more inaccessible place.",
     "about_p10": "I usually pour out food for the birds in the morning. Towards the end of autumn, in winter and at the beginning of spring I try to do it every day. Less often in summer – the birds have enough natural food, they become rare guests at the feeder and do not have time to eat everything. In winter, they eat the food quite quickly – after lunch the feeder is almost empty.",
     "about_p11": "I will be glad to receive any of your suggestions and comments. Leave comments in the broadcast chat, I will definitely read them!",
-    "about_p12": "This project has a website, https://birds.unger1984.pro/ , More information about me and other projects can be found on GitHub https://github.com/unger1984/"
+    "about_p12": "This project has a website, https://birds.unger1984.pro/ , More information about me and other projects can be found on GitHub https://github.com/unger1984/",
+
+    "screenshot_error": "Failed to create image",
+    "screenshot_success": "Image saved to gallery"
 }

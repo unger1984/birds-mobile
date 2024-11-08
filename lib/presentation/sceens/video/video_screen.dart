@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:birds/domain/datasources/settings_source.dart';
 import 'package:birds/domain/repositories/ws_repository.dart';
 import 'package:birds/generated/l10n.dart';
@@ -8,14 +11,67 @@ import 'package:birds/presentation/sceens/video/chat/chat_view.dart';
 import 'package:birds/presentation/sceens/video/count/count_bloc.dart';
 import 'package:birds/presentation/sceens/video/count/count_view.dart';
 import 'package:birds/presentation/sceens/video/count/sound_bloc.dart';
+import 'package:birds/presentation/sceens/video/online/online_view.dart';
 import 'package:birds/presentation/sceens/video/video_player/video_player.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:gal/gal.dart';
 import 'package:get_it/get_it.dart';
 
 @immutable
-class VideoScreen extends StatelessWidget {
+class VideoScreen extends StatefulWidget {
   const VideoScreen({super.key});
+
+  @override
+  State<VideoScreen> createState() => _VideoScreenState();
+}
+
+class _VideoScreenState extends State<VideoScreen> {
+  final _videoKey = GlobalKey();
+  bool _isOnline = false;
+
+  void _handleOnline() {
+    setState(() {
+      _isOnline = !_isOnline;
+    });
+  }
+
+  Future<void> _handleScreenshot() async {
+    final bytes = await (_videoKey.currentState as VideoPlayerState).controller.player.screenshot();
+    if (bytes == null) {
+      Fluttertoast.showToast(
+        msg: S.current.screenshot_error,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+
+      return;
+    }
+
+    if (Platform.isAndroid) {
+      await Gal.putImageBytes(bytes);
+      Fluttertoast.showToast(
+        msg: S.current.screenshot_success,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    } else {
+      const fileName = 'screenshot.jpg';
+      final result = await getSaveLocation(suggestedName: fileName);
+      if (result == null) return;
+      const mimeType = 'image/jpeg';
+      final textFile = XFile.fromData(bytes, mimeType: mimeType, name: fileName);
+      await textFile.saveTo(result.path);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,23 +102,31 @@ class VideoScreen extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Builder(
                 builder: (context) => switch (orientation) {
-                  Orientation.portrait => const Column(
+                  Orientation.portrait => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(child: VideoPlayer()),
-                        CountView(),
-                        SizedBox(height: 5),
-                        Expanded(child: ChatView()),
+                        Expanded(child: VideoPlayer(key: _videoKey)),
+                        CountView(onOnline: _handleOnline, onScreenshot: _handleScreenshot),
+                        const SizedBox(height: 5),
+                        if (_isOnline) const Expanded(child: OnlineView()),
+                        if (_isOnline) const SizedBox(height: 5),
+                        const Expanded(child: ChatView()),
                       ],
                     ),
-                  Orientation.landscape => const Row(
+                  Orientation.landscape => Row(
                       children: [
-                        Flexible(flex: 2, child: VideoPlayer()),
-                        SizedBox(width: 10),
+                        Flexible(flex: 2, child: VideoPlayer(key: _videoKey)),
+                        const SizedBox(width: 10),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [CountView(), SizedBox(height: 5), Expanded(child: ChatView())],
+                            children: [
+                              CountView(onOnline: _handleOnline, onScreenshot: _handleScreenshot),
+                              const SizedBox(height: 5),
+                              if (_isOnline) const Expanded(child: OnlineView()),
+                              if (_isOnline) const SizedBox(height: 5),
+                              const Expanded(child: ChatView()),
+                            ],
                           ),
                         ),
                       ],

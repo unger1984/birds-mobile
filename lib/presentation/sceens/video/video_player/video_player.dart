@@ -9,10 +9,10 @@ class VideoPlayer extends StatefulWidget {
   const VideoPlayer({super.key});
 
   @override
-  State<VideoPlayer> createState() => _VideoPlayerState();
+  State<VideoPlayer> createState() => VideoPlayerState();
 }
 
-class _VideoPlayerState extends State<VideoPlayer> {
+class VideoPlayerState extends State<VideoPlayer> {
   final _player = Player(configuration: const PlayerConfiguration(muted: true));
   late final _controller = VideoController(_player);
   late final _key = GlobalKey<VideoState>();
@@ -23,6 +23,10 @@ class _VideoPlayerState extends State<VideoPlayer> {
 
   bool _preloader = true;
   Timer? _timer;
+
+  // не красиво, но нужно
+  // ignore: avoid-unnecessary-getter, prefer-widget-private-members
+  VideoController get controller => _controller;
 
   @override
   void initState() {
