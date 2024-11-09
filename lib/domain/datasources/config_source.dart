@@ -3,4 +3,5 @@ abstract class ConfigSource {
   String get wsUrl;
   String get hlsUrl;
   String get googleAuthClientId;
+  String get donateUrl;
 }

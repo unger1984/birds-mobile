@@ -5,6 +5,7 @@
 
     "nav_video": "Translation",
     "nav_about": "About",
+    "nav_donate": "For food",
 
     "online": "Online now {total}",
     "sign_in": "Sign in with Google",

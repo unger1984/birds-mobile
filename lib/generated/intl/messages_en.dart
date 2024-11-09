@@ -50,6 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Here you can watch the birds with me, discuss what you saw in the chat and throw in a small penny for bird food. The project is completely non-commercial, does not provide paid services. But I will not refuse donations that will go to feed the birds and develop the project. I have thoughts of installing a few more cameras, or even organizing a feeder in a more inaccessible place."),
         "donate": MessageLookupByLibrary.simpleMessage("For food"),
         "nav_about": MessageLookupByLibrary.simpleMessage("About"),
+        "nav_donate": MessageLookupByLibrary.simpleMessage("For food"),
         "nav_video": MessageLookupByLibrary.simpleMessage("Translation"),
         "online": m0,
         "screenshot_error":

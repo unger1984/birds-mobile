@@ -50,6 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Тут можно понаблюдать за пернатыми вместе со мной, обсудить увиденное в чате и подкинуть малую копеечку на корм птичкам. Проект полностью некоммерческий, платных услуг не предоставляет. Но я не откажусь от пожертвований, которые пойдут на корм пернатым и развитее проекта. Есть мысли поставить еще несколько камер, или даже организовать кормушку в более недоступном месте. "),
         "donate": MessageLookupByLibrary.simpleMessage("На семечки"),
         "nav_about": MessageLookupByLibrary.simpleMessage("О проекте"),
+        "nav_donate": MessageLookupByLibrary.simpleMessage("На семечки"),
         "nav_video": MessageLookupByLibrary.simpleMessage("Трансляция"),
         "online": m0,
         "screenshot_error": MessageLookupByLibrary.simpleMessage(

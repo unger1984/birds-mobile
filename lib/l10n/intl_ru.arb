@@ -5,6 +5,7 @@
 
     "nav_video": "Трансляция",
     "nav_about": "О проекте",
+    "nav_donate": "На семечки",
 
     "online": "Сейчас смотрят {total}",
     "sign_in": "Войти с Google",

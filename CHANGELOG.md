@@ -1,6 +1,13 @@
 # CHANGELOG
 
-## 1.0.3+4
+## 1.0.4+6 09.11.2024
+
+* Update dependencies
+* Fix: Online stats
+* Fix: Video preloader
+* Fix: Donate button
+
+## 1.0.3+4 08.11.2024
 
 * Update dependencies
 * Feat: Make ScreenShots

@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:birds/domain/datasources/config_source.dart';
 import 'package:birds/generated/l10n.dart';
 import 'package:birds/presentation/components/bottom_menu/bottom_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 @immutable
@@ -10,7 +12,7 @@ class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
 
   void _handleDonate() {
-    unawaited(launchUrlString('https://www.tbank.ru/cf/5mfwO0VNFF9'));
+    unawaited(launchUrlString(GetIt.I<ConfigSource>().donateUrl));
   }
 
   @override

@@ -19,6 +19,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gal/gal.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl/intl.dart';
 
 @immutable
 class VideoScreen extends StatefulWidget {
@@ -64,13 +65,17 @@ class _VideoScreenState extends State<VideoScreen> {
         fontSize: 16.0,
       );
     } else {
-      const fileName = 'screenshot.jpg';
+      final fileName = 'screenshot_${DateFormat('yyyyMMdd-HH-mm-ss').format(DateTime.now())}.jpg';
       final result = await getSaveLocation(suggestedName: fileName);
       if (result == null) return;
       const mimeType = 'image/jpeg';
       final textFile = XFile.fromData(bytes, mimeType: mimeType, name: fileName);
       await textFile.saveTo(result.path);
     }
+  }
+
+  Future<void> _handleReload() async {
+    await (_videoKey.currentState as VideoPlayerState).reload();
   }
 
   @override
@@ -106,7 +111,11 @@ class _VideoScreenState extends State<VideoScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(child: VideoPlayer(key: _videoKey)),
-                        CountView(onOnline: _handleOnline, onScreenshot: _handleScreenshot),
+                        CountView(
+                          onOnline: _handleOnline,
+                          onScreenshot: _handleScreenshot,
+                          onReload: () => unawaited(_handleReload()),
+                        ),
                         const SizedBox(height: 5),
                         if (_isOnline) const Expanded(child: OnlineView()),
                         if (_isOnline) const SizedBox(height: 5),
@@ -121,7 +130,11 @@ class _VideoScreenState extends State<VideoScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CountView(onOnline: _handleOnline, onScreenshot: _handleScreenshot),
+                              CountView(
+                                onOnline: _handleOnline,
+                                onScreenshot: _handleScreenshot,
+                                onReload: () => unawaited(_handleReload()),
+                              ),
                               const SizedBox(height: 5),
                               if (_isOnline) const Expanded(child: OnlineView()),
                               if (_isOnline) const SizedBox(height: 5),

@@ -16,8 +16,10 @@ class VideoPlayerState extends State<VideoPlayer> {
   final _player = Player(configuration: const PlayerConfiguration(muted: true));
   late final _controller = VideoController(_player);
   late final _key = GlobalKey<VideoState>();
+  Duration? _duration;
   StreamSubscription<bool>? _buffering;
   StreamSubscription<bool>? _playing;
+  StreamSubscription<Duration>? _position;
 
   final _media = Media('rtsps://birds.unger1984.pro:8322/mystream');
 
@@ -39,6 +41,7 @@ class VideoPlayerState extends State<VideoPlayer> {
     _timer?.cancel();
     unawaited(_buffering?.cancel());
     unawaited(_playing?.cancel());
+    unawaited(_position?.cancel());
     unawaited(_player.dispose());
     super.dispose();
   }
@@ -47,11 +50,11 @@ class VideoPlayerState extends State<VideoPlayer> {
     _buffering?.cancel();
     _buffering = _player.stream.buffering.listen((buff) {
       setState(() {
-        _preloader = buff;
+        // _preloader = buff;
         if (buff) {
           // ограничим
           _timer?.cancel();
-          _timer = Timer(const Duration(seconds: 10), () => unawaited(_reload()));
+          _timer = Timer(const Duration(seconds: 10), () => unawaited(reload()));
         } else {
           _timer?.cancel();
         }
@@ -67,12 +70,36 @@ class VideoPlayerState extends State<VideoPlayer> {
 
     await _player.open(_media);
     _player.setVolume(0);
+    if (mounted) {
+      setState(() {
+        _preloader = false;
+      });
+    }
+
+    _position?.cancel();
+    _position = _player.stream.position.listen((pos) {
+      setState(() {
+        _duration = pos;
+      });
+    });
   }
 
-  Future<void> _reload() async {
+  // Нужно чтобы снаружи дергать перезагрузку
+  // ignore: prefer-widget-private-members
+  Future<void> reload() async {
+    setState(() {
+      _preloader = true;
+    });
+    await _player.stop();
+    await _player.remove(0);
     await _player.open(_media);
     await _player.setVolume(0);
     if (!_player.state.playing) await _player.play();
+    if (mounted) {
+      setState(() {
+        _preloader = false;
+      });
+    }
   }
 
   void _handleFullScreen() {
@@ -98,7 +125,8 @@ class VideoPlayerState extends State<VideoPlayer> {
             controls: _videoStateListener,
           ),
         ),
-        if (_preloader) const Center(child: CircularProgressIndicator(color: Colors.pink)),
+        if (_preloader || _duration == null || _duration == Duration.zero)
+          const Center(child: CircularProgressIndicator(color: Colors.pink)),
       ],
     );
   }

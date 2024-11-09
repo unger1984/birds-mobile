@@ -9,6 +9,7 @@ class ConfigSourceDotenv extends ConfigSource {
   late final String _wsUrl;
   late final String _hlsUrl;
   late final String _googleAuthClientId;
+  late final String _donateUrl;
 
   late Future<void> _initialize;
 
@@ -24,6 +25,7 @@ class ConfigSourceDotenv extends ConfigSource {
       _wsUrl = dotenv.maybeGet('URL_WS') ?? '';
       _hlsUrl = dotenv.maybeGet('URL_HLS') ?? '';
       _googleAuthClientId = dotenv.maybeGet('GOOGLE_AUTH_CLIENT_ID') ?? '';
+      _donateUrl = dotenv.maybeGet('URL_DONATE') ?? '';
     } catch (error, stack) {
       _log.severe('loading .env', error, stack);
     }
@@ -40,4 +42,7 @@ class ConfigSourceDotenv extends ConfigSource {
 
   @override
   String get googleAuthClientId => _googleAuthClientId;
+
+  @override
+  String get donateUrl => _donateUrl;
 }

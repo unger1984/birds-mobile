@@ -40,7 +40,7 @@ class OnlineItem extends StatelessWidget {
                   child: CircleAvatar(backgroundImage: NetworkImage(avatar)),
                 ),
           const SizedBox(width: 8),
-          GestureDetector(onTap: _handleTap, child: Expanded(child: Text(online.ip))),
+          Expanded(child: GestureDetector(onTap: _handleTap, child: Text(online.ip))),
           const SizedBox(width: 8),
           Text(time),
         ],

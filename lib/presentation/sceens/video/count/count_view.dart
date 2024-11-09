@@ -11,7 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CountView extends StatefulWidget {
   final VoidCallback onOnline;
   final AsyncVoidCallback onScreenshot;
-  const CountView({super.key, required this.onOnline, required this.onScreenshot});
+  final VoidCallback onReload;
+  const CountView({super.key, required this.onOnline, required this.onScreenshot, required this.onReload});
 
   @override
   State<CountView> createState() => _CountViewState();
@@ -89,6 +90,7 @@ class _CountViewState extends State<CountView> {
             },
           ),
         ),
+        IconButton(onPressed: widget.onReload, icon: const Icon(Icons.refresh)),
       ],
     );
   }

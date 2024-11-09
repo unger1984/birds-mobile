@@ -80,6 +80,16 @@ class S {
     );
   }
 
+  /// `На семечки`
+  String get nav_donate {
+    return Intl.message(
+      'На семечки',
+      name: 'nav_donate',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Сейчас смотрят {total}`
   String online(Object total) {
     return Intl.message(
