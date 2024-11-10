@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:birds/domain/datasources/config_source.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
 
@@ -21,7 +23,7 @@ class VideoPlayerState extends State<VideoPlayer> {
   StreamSubscription<bool>? _playing;
   StreamSubscription<Duration>? _position;
 
-  final _media = Media('rtsps://birds.unger1984.pro:8322/mystream');
+  final _media = Media(GetIt.I<ConfigSource>().hlsUrl);
 
   bool _preloader = true;
   Timer? _timer;

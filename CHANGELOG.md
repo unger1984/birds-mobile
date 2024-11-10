@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.5+7 09.11.2024
+
+* Fix: Move translation link to .env
+
 ## 1.0.4+6 09.11.2024
 
 * Update dependencies
