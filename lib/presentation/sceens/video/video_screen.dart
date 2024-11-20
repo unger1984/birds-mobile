@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:birds/domain/datasources/config_source.dart';
 import 'package:birds/domain/datasources/settings_source.dart';
 import 'package:birds/domain/repositories/ws_repository.dart';
 import 'package:birds/generated/l10n.dart';
@@ -12,6 +13,7 @@ import 'package:birds/presentation/sceens/video/count/count_bloc.dart';
 import 'package:birds/presentation/sceens/video/count/count_view.dart';
 import 'package:birds/presentation/sceens/video/count/sound_bloc.dart';
 import 'package:birds/presentation/sceens/video/online/online_view.dart';
+import 'package:birds/presentation/sceens/video/video_player/video_bloc.dart';
 import 'package:birds/presentation/sceens/video/video_player/video_player.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
@@ -84,18 +86,22 @@ class _VideoScreenState extends State<VideoScreen> {
       child: MultiBlocProvider(
         providers: [
           BlocProvider<CountBLoC>(
-            create: (context) => CountBLoC(
-              wsCubit: BlocProvider.of<WsCubit>(context),
-            ),
+            create: (context) => CountBLoC(wsCubit: context.read<WsCubit>()),
           ),
           BlocProvider<ChatBLoC>(
             create: (context) => ChatBLoC(
-              wsCubit: BlocProvider.of<WsCubit>(context),
+              wsCubit: context.read<WsCubit>(),
               wsRepository: GetIt.I<WsRepository>(),
             ),
           ),
           BlocProvider<SoundBLoC>(
             create: (context) => SoundBLoC(
+              settingsSource: GetIt.I<SettingsSource>(),
+            ),
+          ),
+          BlocProvider<VideoBLoC>(
+            create: (context) => VideoBLoC(
+              configSource: GetIt.I<ConfigSource>(),
               settingsSource: GetIt.I<SettingsSource>(),
             ),
           ),
@@ -110,7 +116,16 @@ class _VideoScreenState extends State<VideoScreen> {
                   Orientation.portrait => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(child: VideoPlayer(key: _videoKey)),
+                        Expanded(
+                          child: BlocBuilder<VideoBLoC, VideoState>(
+                            // Тут так удобнее
+                            // ignore: avoid-nested-switch-expressions
+                            builder: (context, state) => switch (state) {
+                              SuccessVideoState(:String url) => VideoPlayer(key: _videoKey, url: url),
+                              _ => const SizedBox(),
+                            },
+                          ),
+                        ),
                         CountView(
                           onOnline: _handleOnline,
                           onScreenshot: _handleScreenshot,
@@ -124,7 +139,17 @@ class _VideoScreenState extends State<VideoScreen> {
                     ),
                   Orientation.landscape => Row(
                       children: [
-                        Flexible(flex: 2, child: VideoPlayer(key: _videoKey)),
+                        Flexible(
+                          flex: 2,
+                          child: BlocBuilder<VideoBLoC, VideoState>(
+                            // Тут так удобнее
+                            // ignore: avoid-nested-switch-expressions
+                            builder: (context, state) => switch (state) {
+                              SuccessVideoState(:String url) => VideoPlayer(key: _videoKey, url: url),
+                              _ => const SizedBox(),
+                            },
+                          ),
+                        ),
                         const SizedBox(width: 10),
                         Expanded(
                           child: Column(

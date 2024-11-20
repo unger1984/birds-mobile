@@ -51,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "donate": MessageLookupByLibrary.simpleMessage("На семечки"),
         "nav_about": MessageLookupByLibrary.simpleMessage("О проекте"),
         "nav_donate": MessageLookupByLibrary.simpleMessage("На семечки"),
+        "nav_settings": MessageLookupByLibrary.simpleMessage("Настройки"),
         "nav_video": MessageLookupByLibrary.simpleMessage("Трансляция"),
         "online": m0,
         "screenshot_error": MessageLookupByLibrary.simpleMessage(

@@ -14,11 +14,11 @@ sealed class AuthEvent {
   const factory AuthEvent.auth(WsDataAuthEntity data) = _UserAuthEvent;
 }
 
-class _ClearAuthEvent extends AuthEvent {
+final class _ClearAuthEvent extends AuthEvent {
   const _ClearAuthEvent();
 }
 
-class _UserAuthEvent extends AuthEvent {
+final class _UserAuthEvent extends AuthEvent {
   final WsDataAuthEntity data;
   const _UserAuthEvent(this.data);
 }
@@ -29,11 +29,11 @@ sealed class AuthState {
   const factory AuthState.on(UserEntity user) = OnAuthState;
 }
 
-class OffAuthState extends AuthState {
+final class OffAuthState extends AuthState {
   const OffAuthState();
 }
 
-class OnAuthState extends AuthState {
+final class OnAuthState extends AuthState {
   final UserEntity user;
   const OnAuthState(this.user);
 }

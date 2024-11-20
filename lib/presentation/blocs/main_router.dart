@@ -3,28 +3,38 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 sealed class MainRouterEvent {
   const MainRouterEvent();
   const factory MainRouterEvent.video() = _VideoMainRouterEvent;
+  const factory MainRouterEvent.settings() = _SettingsMainRouterEvent;
   const factory MainRouterEvent.about() = _AboutMainRouterEvent;
 }
 
-class _VideoMainRouterEvent extends MainRouterEvent {
+final class _VideoMainRouterEvent extends MainRouterEvent {
   const _VideoMainRouterEvent();
 }
 
-class _AboutMainRouterEvent extends MainRouterEvent {
+final class _SettingsMainRouterEvent extends MainRouterEvent {
+  const _SettingsMainRouterEvent();
+}
+
+final class _AboutMainRouterEvent extends MainRouterEvent {
   const _AboutMainRouterEvent();
 }
 
 sealed class MainRouterState {
   const MainRouterState();
   const factory MainRouterState.video() = VideoMainRouterState;
+  const factory MainRouterState.settings() = SettingsMainRouterState;
   const factory MainRouterState.about() = AboutMainRouterState;
 }
 
-class VideoMainRouterState extends MainRouterState {
+final class VideoMainRouterState extends MainRouterState {
   const VideoMainRouterState();
 }
 
-class AboutMainRouterState extends MainRouterState {
+final class SettingsMainRouterState extends MainRouterState {
+  const SettingsMainRouterState();
+}
+
+final class AboutMainRouterState extends MainRouterState {
   const AboutMainRouterState();
 }
 
@@ -33,6 +43,7 @@ class MainRouterBLoC extends Bloc<MainRouterEvent, MainRouterState> {
     on<MainRouterEvent>(
       (event, emitter) => switch (event) {
         _VideoMainRouterEvent() => _video(emitter),
+        _SettingsMainRouterEvent() => _settings(emitter),
         _AboutMainRouterEvent() => _about(emitter),
       },
     );
@@ -40,6 +51,10 @@ class MainRouterBLoC extends Bloc<MainRouterEvent, MainRouterState> {
 
   void _video(Emitter<MainRouterState> emitter) {
     emitter(const MainRouterState.video());
+  }
+
+  void _settings(Emitter<MainRouterState> emitter) {
+    emitter(const MainRouterState.settings());
   }
 
   void _about(Emitter<MainRouterState> emitter) {

@@ -12,7 +12,7 @@ sealed class OnlineEvent {
   const factory OnlineEvent.set(List<OnlineEntity> list) = _SetOnlineEvent;
 }
 
-class _SetOnlineEvent extends OnlineEvent {
+final class _SetOnlineEvent extends OnlineEvent {
   final List<OnlineEntity> list;
   const _SetOnlineEvent(this.list);
 }
@@ -23,11 +23,11 @@ sealed class OnlineState {
   const factory OnlineState.success(List<OnlineEntity> list) = SuccessOnlineState;
 }
 
-class LoadingOnlineState extends OnlineState {
+final class LoadingOnlineState extends OnlineState {
   const LoadingOnlineState();
 }
 
-class SuccessOnlineState extends OnlineState {
+final class SuccessOnlineState extends OnlineState {
   final List<OnlineEntity> list;
   const SuccessOnlineState(this.list);
 }

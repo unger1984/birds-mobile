@@ -70,6 +70,16 @@ class S {
     );
   }
 
+  /// `Настройки`
+  String get nav_settings {
+    return Intl.message(
+      'Настройки',
+      name: 'nav_settings',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `О проекте`
   String get nav_about {
     return Intl.message(

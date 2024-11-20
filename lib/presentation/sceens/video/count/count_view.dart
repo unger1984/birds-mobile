@@ -23,7 +23,7 @@ class _CountViewState extends State<CountView> {
   bool _isScreenshot = false;
 
   void _handlePlayPause() {
-    BlocProvider.of<SoundBLoC>(context).add(const SoundEvent.change());
+    context.read<SoundBLoC>().add(const SoundEvent.change());
   }
 
   void _handleTap() {

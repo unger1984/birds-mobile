@@ -11,11 +11,11 @@ sealed class CountEvent {
   const factory CountEvent.set(int total) = _SetCountEvent;
 }
 
-class _WaitCountEvent extends CountEvent {
+final class _WaitCountEvent extends CountEvent {
   const _WaitCountEvent();
 }
 
-class _SetCountEvent extends CountEvent {
+final class _SetCountEvent extends CountEvent {
   final int total;
   const _SetCountEvent(this.total);
 }
@@ -26,11 +26,11 @@ sealed class CountState {
   const factory CountState.total(int total) = TotalCountState;
 }
 
-class LoadingCountState extends CountState {
+final class LoadingCountState extends CountState {
   const LoadingCountState();
 }
 
-class TotalCountState extends CountState {
+final class TotalCountState extends CountState {
   final int total;
   const TotalCountState(this.total);
 }

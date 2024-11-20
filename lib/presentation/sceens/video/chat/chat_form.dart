@@ -41,10 +41,9 @@ class _ChatFormState extends State<ChatForm> {
     return Row(
       children: [
         avatar == null
-            ? const SizedBox(width: 24, height: 24)
-            : SizedBox(
-                width: 24,
-                height: 24,
+            ? const SizedBox.square(dimension: 24)
+            : SizedBox.square(
+                dimension: 24,
                 child: CircleAvatar(backgroundImage: NetworkImage(avatar)),
               ),
         const SizedBox(width: 5),

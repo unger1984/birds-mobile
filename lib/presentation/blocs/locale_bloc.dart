@@ -9,11 +9,11 @@ sealed class LocaleEvent {
   const factory LocaleEvent.change(String locale) = _ChangeLocaleEvent;
 }
 
-class _InitLocaleEvent extends LocaleEvent {
+final class _InitLocaleEvent extends LocaleEvent {
   const _InitLocaleEvent();
 }
 
-class _ChangeLocaleEvent extends LocaleEvent {
+final class _ChangeLocaleEvent extends LocaleEvent {
   final String locale;
   const _ChangeLocaleEvent(this.locale);
 }
@@ -24,11 +24,11 @@ sealed class LocaleState {
   const factory LocaleState.success(String locale) = SuccessLocaleState;
 }
 
-class LoadingLocaleState extends LocaleState {
+final class LoadingLocaleState extends LocaleState {
   const LoadingLocaleState();
 }
 
-class SuccessLocaleState extends LocaleState {
+final class SuccessLocaleState extends LocaleState {
   final String locale;
   const SuccessLocaleState(this.locale);
 }

@@ -13,11 +13,11 @@ sealed class ChatEvent {
   const factory ChatEvent.add(WsDataMessageEntity message) = _AddChatEvent;
 }
 
-class _InitChatEvent extends ChatEvent {
+final class _InitChatEvent extends ChatEvent {
   const _InitChatEvent();
 }
 
-class _AddChatEvent extends ChatEvent {
+final class _AddChatEvent extends ChatEvent {
   final WsDataMessageEntity message;
   const _AddChatEvent(this.message);
 }
@@ -28,11 +28,11 @@ sealed class ChatState {
   const factory ChatState.success(List<WsDataMessageEntity> list) = SuccessChatState;
 }
 
-class LoadingChatState extends ChatState {
+final class LoadingChatState extends ChatState {
   const LoadingChatState();
 }
 
-class SuccessChatState extends ChatState {
+final class SuccessChatState extends ChatState {
   final List<WsDataMessageEntity> list;
   const SuccessChatState(this.list);
 }

@@ -10,11 +10,11 @@ sealed class SoundEvent {
   const factory SoundEvent.change() = _ChangeSoundEvent;
 }
 
-class _InitSoundEvent extends SoundEvent {
+final class _InitSoundEvent extends SoundEvent {
   const _InitSoundEvent();
 }
 
-class _ChangeSoundEvent extends SoundEvent {
+final class _ChangeSoundEvent extends SoundEvent {
   const _ChangeSoundEvent();
 }
 
@@ -25,15 +25,15 @@ sealed class SoundState {
   const factory SoundState.pause() = PauseSoundState;
 }
 
-class LoadingSoundState extends SoundState {
+final class LoadingSoundState extends SoundState {
   const LoadingSoundState();
 }
 
-class PlaySoundState extends SoundState {
+final class PlaySoundState extends SoundState {
   const PlaySoundState();
 }
 
-class PauseSoundState extends SoundState {
+final class PauseSoundState extends SoundState {
   const PauseSoundState();
 }
 

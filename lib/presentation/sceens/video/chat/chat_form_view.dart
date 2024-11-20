@@ -8,7 +8,7 @@ import 'package:birds/domain/repositories/ws_repository.dart';
 import 'package:birds/generated/l10n.dart';
 import 'package:birds/presentation/blocs/auth_bloc.dart';
 import 'package:birds/presentation/sceens/video/chat/chat_form.dart';
-import 'package:flutter/foundation.dart';
+import 'package:birds/utils/logger/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +23,7 @@ class ChatFormView extends StatefulWidget {
 }
 
 class _ChatFormViewState extends State<ChatFormView> {
+  static final _log = Logger().create('ChatFormView');
   final _config = GetIt.I<ConfigSource>();
   final _wscoket = GetIt.I<WsRepository>();
   final _appAuth = const FlutterAppAuth();
@@ -42,10 +43,8 @@ class _ChatFormViewState extends State<ChatFormView> {
       if (token != null) {
         _wscoket.send(WsEntity(cmd: WsCmd.signIn, data: WsDataSignInEntity(access_token: token)));
       }
-    } catch (exception) {
-      if (kDebugMode) {
-        print(exception);
-      }
+    } catch (exception, stackTrace) {
+      _log.error('GoogleSignIn', exception, stackTrace);
     }
   }
 

@@ -6,13 +6,13 @@ import 'dart:convert';
 import 'package:birds/data/models/ws_model.dart';
 import 'package:birds/domain/entities/ws_entity.dart';
 import 'package:birds/domain/repositories/ws_repository.dart';
+import 'package:birds/utils/logger/logger.dart';
 import 'package:birds/utils/types.dart';
 import 'package:flutter/foundation.dart';
-import 'package:logging/logging.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class WsRepositoryImpl extends WsRepository {
-  static final _log = Logger('ConfigSourceDotenv');
+  static final _log = Logger().create('ConfigSourceDotenv');
   final String url;
   WebSocketChannel? _channel;
   StreamSubscription<dynamic>? _subscription;
@@ -30,7 +30,7 @@ class WsRepositoryImpl extends WsRepository {
   }
 
   Future<void> _onError([dynamic err]) async {
-    _log.severe('ws error', err);
+    _log.error('ws error', err);
     if (_subscription != null) {
       await _subscription?.cancel();
       final onReconnect = _onReconnect;

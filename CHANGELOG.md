@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 1.1.0+8 20.11.2024
+
+* Update dependencies
+* Change logging to Trackit
+* Fix DCM warnings (new rules)
+* Add change video resolution
+
 ## 1.0.5+7 09.11.2024
 
 * Fix: Move translation link to .env

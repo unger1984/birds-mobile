@@ -15,12 +15,12 @@ class OnlineView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => OnlineBLoC(
-        wsCubit: BlocProvider.of<WsCubit>(context),
+        wsCubit: context.read<WsCubit>(),
         wsRepository: GetIt.I<WsRepository>(),
       ),
       child: BlocBuilder<OnlineBLoC, OnlineState>(
         builder: (context, state) => switch (state) {
-          SuccessOnlineState(:List<OnlineEntity> list) => OnlineList(list: list),
+          SuccessOnlineState(:List<OnlineEntity> list) => OnlineList(list: list.reversed.toList()),
           _ => const Center(child: CircularProgressIndicator()),
         },
       ),

@@ -51,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "donate": MessageLookupByLibrary.simpleMessage("For food"),
         "nav_about": MessageLookupByLibrary.simpleMessage("About"),
         "nav_donate": MessageLookupByLibrary.simpleMessage("For food"),
+        "nav_settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "nav_video": MessageLookupByLibrary.simpleMessage("Translation"),
         "online": m0,
         "screenshot_error":
