@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.1+9 22.11.2024
+
+* Change minSdk to 21 and size of apk from 100 to 50mb
+
 ## 1.1.0+8 20.11.2024
 
 * Update dependencies
